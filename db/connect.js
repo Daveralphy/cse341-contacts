@@ -1,11 +1,14 @@
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config(); // This loads the local .env file when you are on your computer
+
 const MongoClient = require('mongodb').MongoClient;
 
-// Build the connection string from individual .env variables
+// These lines will now grab from your local .env OR from Render's dashboard
 const user = process.env.DB_USERNAME;
 const pass = process.env.DB_PASSWORD;
 const url = process.env.DB_URL;
+
+// This builds the connection string using whatever variables are found
 const uri = `mongodb+srv://${user}:${pass}@${url}/`;
 
 let _db;
@@ -15,7 +18,12 @@ const initDb = (callback) => {
     console.log('Db is already initialized!');
     return callback(null, _db);
   }
-  // Now we use the 'uri' variable we just built above
+  
+  // If uri is undefined, it means the variables above didn't load
+  if (!user || !pass || !url) {
+    return callback(new Error("Environment variables are missing. Check Render Config Vars."));
+  }
+
   MongoClient.connect(uri)
     .then((client) => {
       _db = client;
