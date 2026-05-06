@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-// Directly accessing process.env (Render injects these automatically)
 const user = process.env.DB_USERNAME;
 const pass = process.env.DB_PASSWORD;
 const url = process.env.DB_URL;
@@ -16,7 +15,6 @@ let _db;
 const initDb = (callback) => {
   if (_db) return callback(null, _db);
   
-  // Explicit check: if these are missing, Render Config Vars are not set
   if (!user || !pass || !url) {
     return callback(new Error("Database credentials missing from process.env"));
   }

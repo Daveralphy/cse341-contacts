@@ -1,5 +1,6 @@
 ### Get all contacts
 GET http://localhost:8080/contacts
 
-### Get contact by ID (Replace the ID below with one from your Atlas cluster)
-GET http://localhost:8080/contacts/64f1234567890abcdef12345
+GET http://localhost:8080/contacts/69f9cea048475cbf20fbff17
+
+GET https://cse341-contacts-unhb.onrender.com/contacts/69f9cea048475cbf20fbff17
