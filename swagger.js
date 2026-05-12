@@ -5,12 +5,11 @@ const doc = {
     title: 'My Nigerian Contacts API',
     description: 'Contacts API for CSE 341',
   },
-  host: 'localhost:8080',
-  schemes: ['http'],
+  host: 'cse341-contacts-unhb.onrender.com', 
+  schemes: ['https'],
 };
 
 const outputFile = './swagger.json';
 const endpointsFiles = ['./server.js'];
 
-// generate swagger.json
 swaggerAutogen()(outputFile, endpointsFiles, doc);

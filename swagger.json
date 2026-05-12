@@ -5,10 +5,10 @@
     "description": "Contacts API for CSE 341",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "cse341-contacts-unhb.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/contacts/": {
