@@ -4,3 +4,16 @@ GET http://localhost:8080/contacts
 GET http://localhost:8080/contacts/69f9cea048475cbf20fbff17
 
 GET https://cse341-contacts-unhb.onrender.com/contacts/69f9cea048475cbf20fbff17
+
+### Create Contact (POST)
+### Update Contact (PUT)
+PUT http://localhost:8080/contacts/6a036e8879fa92c9b91c8b69 HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Ngozi",
+    "lastName": "Eze-Okonkwo",
+    "email": "ngozi.eze@example.ng",
+    "favoriteColor": "Green",
+    "birthday": "05/12/1990"
+}

@@ -1,35 +1,36 @@
-const MongoClient = require('mongodb').MongoClient;
-// Only require dotenv if we are NOT in production (Render)
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
-const user = process.env.DB_USERNAME;
-const pass = process.env.DB_PASSWORD;
-const url = process.env.DB_URL;
-
-const uri = `mongodb+srv://${user}:${pass}@${url}/`;
+import dotenv from 'dotenv';
+dotenv.config();
+import { MongoClient } from 'mongodb';
 
 let _db;
 
 const initDb = (callback) => {
-  if (_db) return callback(null, _db);
-  
-  if (!user || !pass || !url) {
-    return callback(new Error("Database credentials missing from process.env"));
+  if (_db) {
+    console.log('Db is already initialized!');
+    return callback(null, _db);
   }
+
+  // Using the dynamic connection string with your .env variables
+  const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_URL}`;
 
   MongoClient.connect(uri)
     .then((client) => {
       _db = client;
       callback(null, _db);
     })
-    .catch((err) => callback(err));
+    .catch((err) => {
+      callback(err);
+    });
 };
 
 const getDb = () => {
-  if (!_db) throw Error('Db not initialized');
+  if (!_db) {
+    throw Error('Db not initialized');
+  }
   return _db;
 };
 
-module.exports = { initDb, getDb };
+export default {
+  initDb,
+  getDb,
+};
