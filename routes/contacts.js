@@ -4,7 +4,6 @@ import mongodb from '../db/connect.js';
 import { ObjectId } from 'mongodb';
 import { validateContact } from '../utils/validation.js';
 
-// GET all contacts
 router.get('/', async (req, res) => {
   try {
     const result = await mongodb
@@ -21,10 +20,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET a single contact by ID
 router.get('/:id', async (req, res) => {
   try {
-    // Validate ID format
     if (!ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: 'Invalid contact ID format' });
     }
@@ -48,10 +45,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST a new contact
 router.post('/', async (req, res) => {
   try {
-    // Validate request body
     const validationErrors = validateContact(req.body);
     if (validationErrors.length > 0) {
       return res.status(400).json({ 
@@ -90,15 +85,12 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT (Update) an existing contact
 router.put('/:id', async (req, res) => {
   try {
-    // Validate ID format
     if (!ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: 'Invalid contact ID format' });
     }
 
-    // Validate request body
     const validationErrors = validateContact(req.body);
     if (validationErrors.length > 0) {
       return res.status(400).json({ 
@@ -139,10 +131,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE a contact
 router.delete('/:id', async (req, res) => {
   try {
-    // Validate ID format
     if (!ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: 'Invalid contact ID format' });
     }

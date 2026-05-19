@@ -156,23 +156,24 @@ Content-Type: application/json
 }
 
 ###############################################
-### PRODUCTION API BASE URL (after deployment)
+### PRODUCTION API
 ###############################################
+@prodUrl = https://cse341-contacts-unhb.onrender.com
 
 ### Production - Get all contacts
-# GET https://your-project.onrender.com/contacts
+GET {{prodUrl}}/contacts
 
 ### Production - Create contact
-# POST https://your-project.onrender.com/contacts
-# Content-Type: application/json
-#
-# {
-#   "firstName": "John",
-#   "lastName": "Doe",
-#   "email": "john@example.com",
-#   "phone": "+234812345678",
-#   "address": "123 Main St, Lagos",
-#   "profession": "Software Engineer",
-#   "favoriteColor": "Blue",
-#   "birthday": "1990-01-15"
-# }
+POST {{prodUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john@example.com",
+  "phone": "+234812345678",
+  "address": "123 Main St, Lagos",
+  "profession": "Software Engineer",
+  "favoriteColor": "Blue",
+  "birthday": "1990-01-15"
+}

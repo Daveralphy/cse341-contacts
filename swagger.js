@@ -6,16 +6,8 @@ const doc = {
     description: 'Contacts and Projects API for CSE 341 - Performs CRUD operations on MongoDB',
     version: '1.0.0',
   },
-  host: 'cse341-contacts-unhb.onrender.com', 
-  schemes: ['https', 'http'],
-  securityDefinitions: {
-    Bearer: {
-      type: 'apiKey',
-      in: 'header',
-      name: 'Authorization',
-      description: 'JWT Authorization header using the Bearer scheme',
-    },
-  },
+  host: 'cse341-contacts-unhb.onrender.com',
+  schemes: ['https'],
 };
 
 const outputFile = './swagger.json';

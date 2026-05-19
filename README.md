@@ -2,15 +2,6 @@
 
 A RESTful API for managing contacts and projects with MongoDB, built with Node.js and Express.
 
-## Features
-
-- ✅ **Two Collections**: Contacts and Projects
-- ✅ **CRUD Operations**: Full Create, Read, Update, Delete functionality
-- ✅ **Data Validation**: Comprehensive validation for all inputs
-- ✅ **Error Handling**: Proper HTTP status codes and error messages
-- ✅ **API Documentation**: Swagger/OpenAPI documentation
-- ✅ **Security**: Environment variables for sensitive data
-
 ## Project Structure
 
 ```
@@ -64,6 +55,11 @@ npm start
 
 The server will start on `http://localhost:8080`
 - API Documentation: `http://localhost:8080/api-docs`
+
+## Live API
+
+Production API deployed at: https://cse341-contacts-unhb.onrender.com
+- Production Documentation: https://cse341-contacts-unhb.onrender.com/api-docs
 
 ## API Endpoints
 
@@ -205,52 +201,19 @@ curl -X POST http://localhost:8080/projects \
    - **projects**: For storing project information
 3. Add your credentials to the `.env` file
 
-## Deployment to Render
-
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "W03 Project: CRUD Operations with Validation"
-   git push origin main
-   ```
-
-2. **Create a Render project**
-   - Go to [render.com](https://render.com)
-   - Create a new Web Service
-   - Connect your GitHub repository
-   - Set environment variables:
-     - `DB_USERNAME`
-     - `DB_PASSWORD`
-     - `DB_URL`
-     - `PORT`
-
-3. **Deploy**
-   - Render will automatically deploy on push
-
 ## Testing with Swagger
 
-Visit `https://your-render-url.onrender.com/api-docs` to test all endpoints directly in the browser.
+Visit https://cse341-contacts-unhb.onrender.com/api-docs to test endpoints.
 
 ## Requirements Met
 
-- ✅ Two collections (Contacts & Projects)
-- ✅ At least one collection with 7+ fields (Contacts has 8)
-- ✅ All GET, POST, PUT, DELETE operations working
-- ✅ Data validation on POST and PUT routes
-- ✅ Error handling with proper HTTP status codes
-- ✅ Professional API documentation with Swagger
-- ✅ Environment variable configuration
-- ✅ Ready for Render deployment
-
-## Next Steps (Week 04)
-
-- Add OAuth authentication
-- Implement user management
-- Add authorization checks
-- Enhance API security
-
-## Author
-Created for BYU CSE 341 - Web Backend Development
+- Two collections (Contacts & Projects)
+- Collections with 7+ fields
+- Full CRUD operations (GET, POST, PUT, DELETE)
+- Data validation on POST and PUT routes
+- Error handling with proper HTTP status codes
+- Professional API documentation with Swagger
+- Environment variable configuration
 
 ## License
 ISC
