@@ -1,0 +1,178 @@
+### Local API Base URL
+@baseUrl = http://localhost:8080
+
+### API Documentation
+GET {{baseUrl}}/api-docs
+
+###############################################
+### CONTACTS ENDPOINTS
+###############################################
+
+### Get all contacts
+GET {{baseUrl}}/contacts
+
+### Create a new contact
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john@example.com",
+  "phone": "+234812345678",
+  "address": "123 Main St, Lagos",
+  "profession": "Software Engineer",
+  "favoriteColor": "Blue",
+  "birthday": "1990-01-15"
+}
+
+### Create a second contact
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane@example.com",
+  "phone": "+234887654321",
+  "address": "456 Oak Ave, Lagos",
+  "profession": "Data Analyst",
+  "favoriteColor": "Purple",
+  "birthday": "1992-05-20"
+}
+
+### Get a specific contact (replace with actual MongoDB ID)
+GET {{baseUrl}}/contacts/507f1f77bcf86cd799439011
+
+### Update a contact (replace with actual MongoDB ID)
+PUT {{baseUrl}}/contacts/507f1f77bcf86cd799439011
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@example.com",
+  "phone": "+234812345999",
+  "address": "789 Pine St, Lagos",
+  "profession": "Senior Software Engineer",
+  "favoriteColor": "Green",
+  "birthday": "1990-01-15"
+}
+
+### Delete a contact (replace with actual MongoDB ID)
+DELETE {{baseUrl}}/contacts/507f1f77bcf86cd799439011
+
+### Test validation - missing required field
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Invalid",
+  "lastName": "Contact"
+}
+
+### Test validation - invalid email
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "invalid-email"
+}
+
+###############################################
+### PROJECTS ENDPOINTS
+###############################################
+
+### Get all projects
+GET {{baseUrl}}/projects
+
+### Create a new project
+POST {{baseUrl}}/projects
+Content-Type: application/json
+
+{
+  "name": "Website Redesign",
+  "description": "Redesign company website with modern UI and improved UX",
+  "status": "in_progress",
+  "startDate": "2024-01-15",
+  "endDate": "2024-03-15",
+  "priority": "high",
+  "tags": ["frontend", "design", "mobile"]
+}
+
+### Create a second project
+POST {{baseUrl}}/projects
+Content-Type: application/json
+
+{
+  "name": "Mobile App Development",
+  "description": "Develop iOS and Android mobile application",
+  "status": "pending",
+  "startDate": "2024-02-01",
+  "endDate": "2024-06-30",
+  "priority": "medium",
+  "tags": ["mobile", "ios", "android"]
+}
+
+### Get a specific project (replace with actual MongoDB ID)
+GET {{baseUrl}}/projects/507f1f77bcf86cd799439012
+
+### Update a project (replace with actual MongoDB ID)
+PUT {{baseUrl}}/projects/507f1f77bcf86cd799439012
+Content-Type: application/json
+
+{
+  "name": "Website Redesign - Phase 2",
+  "description": "Continue website redesign with backend optimization",
+  "status": "completed",
+  "startDate": "2024-01-15",
+  "endDate": "2024-03-15",
+  "priority": "medium",
+  "tags": ["frontend", "backend", "optimization"]
+}
+
+### Delete a project (replace with actual MongoDB ID)
+DELETE {{baseUrl}}/projects/507f1f77bcf86cd799439012
+
+### Test validation - invalid status
+POST {{baseUrl}}/projects
+Content-Type: application/json
+
+{
+  "name": "Invalid Project",
+  "description": "This should fail",
+  "status": "invalid_status"
+}
+
+### Test validation - missing description
+POST {{baseUrl}}/projects
+Content-Type: application/json
+
+{
+  "name": "Incomplete Project",
+  "status": "pending"
+}
+
+###############################################
+### PRODUCTION API BASE URL (after deployment)
+###############################################
+
+### Production - Get all contacts
+# GET https://your-project.onrender.com/contacts
+
+### Production - Create contact
+# POST https://your-project.onrender.com/contacts
+# Content-Type: application/json
+#
+# {
+#   "firstName": "John",
+#   "lastName": "Doe",
+#   "email": "john@example.com",
+#   "phone": "+234812345678",
+#   "address": "123 Main St, Lagos",
+#   "profession": "Software Engineer",
+#   "favoriteColor": "Blue",
+#   "birthday": "1990-01-15"
+# }

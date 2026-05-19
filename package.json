@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Daveralphy/cse341-contacts#readme",
   "description": "",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",

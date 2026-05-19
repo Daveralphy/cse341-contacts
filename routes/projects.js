@@ -2,15 +2,15 @@ import express from 'express';
 const router = express.Router();
 import mongodb from '../db/connect.js';
 import { ObjectId } from 'mongodb';
-import { validateContact } from '../utils/validation.js';
+import { validateProject } from '../utils/validation.js';
 
-// GET all contacts
+// GET all projects
 router.get('/', async (req, res) => {
   try {
     const result = await mongodb
       .getDb()
       .db('cse341')
-      .collection('contacts')
+      .collection('projects')
       .find();
     result.toArray().then((lists) => {
       res.setHeader('Content-Type', 'application/json');
@@ -21,24 +21,24 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET a single contact by ID
+// GET a single project by ID
 router.get('/:id', async (req, res) => {
   try {
     // Validate ID format
     if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: 'Invalid contact ID format' });
+      return res.status(400).json({ message: 'Invalid project ID format' });
     }
 
-    const userId = new ObjectId(req.params.id);
+    const projectId = new ObjectId(req.params.id);
     const result = await mongodb
       .getDb()
       .db('cse341')
-      .collection('contacts')
-      .find({ _id: userId });
+      .collection('projects')
+      .find({ _id: projectId });
     
     result.toArray().then((lists) => {
       if (lists.length === 0) {
-        return res.status(404).json({ message: 'Contact not found' });
+        return res.status(404).json({ message: 'Project not found' });
       }
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json(lists[0]);
@@ -48,11 +48,11 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST a new contact
+// POST a new project
 router.post('/', async (req, res) => {
   try {
     // Validate request body
-    const validationErrors = validateContact(req.body);
+    const validationErrors = validateProject(req.body);
     if (validationErrors.length > 0) {
       return res.status(400).json({ 
         message: 'Validation failed',
@@ -60,46 +60,46 @@ router.post('/', async (req, res) => {
       });
     }
 
-    const contact = {
-      firstName: req.body.firstName.trim(),
-      lastName: req.body.lastName.trim(),
-      email: req.body.email.trim().toLowerCase(),
-      phone: req.body.phone ? req.body.phone.trim() : '',
-      address: req.body.address ? req.body.address.trim() : '',
-      profession: req.body.profession ? req.body.profession.trim() : '',
-      favoriteColor: req.body.favoriteColor ? req.body.favoriteColor.trim() : '',
-      birthday: req.body.birthday ? req.body.birthday.trim() : '',
+    const project = {
+      name: req.body.name.trim(),
+      description: req.body.description.trim(),
+      status: req.body.status.trim(),
+      startDate: req.body.startDate ? req.body.startDate.trim() : '',
+      endDate: req.body.endDate ? req.body.endDate.trim() : '',
+      priority: req.body.priority ? req.body.priority.trim() : 'medium',
+      tags: Array.isArray(req.body.tags) ? req.body.tags : [],
+      createdAt: new Date(),
     };
 
     const response = await mongodb
       .getDb()
       .db('cse341')
-      .collection('contacts')
-      .insertOne(contact);
+      .collection('projects')
+      .insertOne(project);
 
     if (response.acknowledged) {
       res.status(201).json({ 
-        message: 'Contact created successfully',
+        message: 'Project created successfully',
         insertedId: response.insertedId 
       });
     } else {
-      res.status(500).json({ message: 'Error creating contact' });
+      res.status(500).json({ message: 'Error creating project' });
     }
   } catch (err) {
     res.status(500).json({ message: 'Server error: ' + err.message });
   }
 });
 
-// PUT (Update) an existing contact
+// PUT (Update) an existing project
 router.put('/:id', async (req, res) => {
   try {
     // Validate ID format
     if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: 'Invalid contact ID format' });
+      return res.status(400).json({ message: 'Invalid project ID format' });
     }
 
     // Validate request body
-    const validationErrors = validateContact(req.body);
+    const validationErrors = validateProject(req.body);
     if (validationErrors.length > 0) {
       return res.status(400).json({ 
         message: 'Validation failed',
@@ -107,30 +107,30 @@ router.put('/:id', async (req, res) => {
       });
     }
 
-    const userId = new ObjectId(req.params.id);
-    const contact = {
-      firstName: req.body.firstName.trim(),
-      lastName: req.body.lastName.trim(),
-      email: req.body.email.trim().toLowerCase(),
-      phone: req.body.phone ? req.body.phone.trim() : '',
-      address: req.body.address ? req.body.address.trim() : '',
-      profession: req.body.profession ? req.body.profession.trim() : '',
-      favoriteColor: req.body.favoriteColor ? req.body.favoriteColor.trim() : '',
-      birthday: req.body.birthday ? req.body.birthday.trim() : '',
+    const projectId = new ObjectId(req.params.id);
+    const project = {
+      name: req.body.name.trim(),
+      description: req.body.description.trim(),
+      status: req.body.status.trim(),
+      startDate: req.body.startDate ? req.body.startDate.trim() : '',
+      endDate: req.body.endDate ? req.body.endDate.trim() : '',
+      priority: req.body.priority ? req.body.priority.trim() : 'medium',
+      tags: Array.isArray(req.body.tags) ? req.body.tags : [],
+      updatedAt: new Date(),
     };
 
     const response = await mongodb
       .getDb()
       .db('cse341')
-      .collection('contacts')
-      .replaceOne({ _id: userId }, contact);
+      .collection('projects')
+      .replaceOne({ _id: projectId }, project);
 
     if (response.matchedCount === 0) {
-      return res.status(404).json({ message: 'Contact not found' });
+      return res.status(404).json({ message: 'Project not found' });
     }
 
     if (response.modifiedCount > 0) {
-      res.status(200).json({ message: 'Contact updated successfully' });
+      res.status(200).json({ message: 'Project updated successfully' });
     } else {
       res.status(200).json({ message: 'No changes made' });
     }
@@ -139,25 +139,25 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE a contact
+// DELETE a project
 router.delete('/:id', async (req, res) => {
   try {
     // Validate ID format
     if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: 'Invalid contact ID format' });
+      return res.status(400).json({ message: 'Invalid project ID format' });
     }
 
-    const userId = new ObjectId(req.params.id);
+    const projectId = new ObjectId(req.params.id);
     const response = await mongodb
       .getDb()
       .db('cse341')
-      .collection('contacts')
-      .deleteOne({ _id: userId });
+      .collection('projects')
+      .deleteOne({ _id: projectId });
 
     if (response.deletedCount > 0) {
-      res.status(200).json({ message: 'Contact deleted successfully' });
+      res.status(200).json({ message: 'Project deleted successfully' });
     } else {
-      res.status(404).json({ message: 'Contact not found' });
+      res.status(404).json({ message: 'Project not found' });
     }
   } catch (err) {
     res.status(500).json({ message: 'Server error: ' + err.message });

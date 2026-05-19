@@ -17,3 +17,6 @@ Content-Type: application/json
     "favoriteColor": "Green",
     "birthday": "05/12/1990"
 }
+
+### Delete Contact (DELETE)
+DELETE http://localhost:8080/contacts/6a036e8879fa92c9b91c8b69 HTTP/1.1
